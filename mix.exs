@@ -7,7 +7,7 @@ defmodule HordeTest.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
       releases: [
         elixirtrader: [
           include_executables_for: [:unix]
@@ -20,15 +20,16 @@ defmodule HordeTest.MixProject do
   def application do
     [
       extra_applications: [:runtime_tools, :logger, :observer, :wx],
-      mod: {HordeTest.Application}
+      mod: {HordeTest.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:horde,"~>0.6.0"},
-      {:libcluster, "~3.1"}
+      {:horde,"~> 0.6.0"},
+#      {:delta_crdt,"~> 0.5.5"},
+      {:libcluster, "~> 3.1"}
     ]
   end
 end

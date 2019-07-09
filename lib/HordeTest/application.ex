@@ -18,7 +18,7 @@ defmodule HordeTest.Application do
 
     ]
 
-    opts=[strategy: one_for_one, name: {:global, Hordetest.Supervisor}]
+    opts=[strategy: :one_for_one, name: {:global, Hordetest.Supervisor}]
     Supervisor.start_link(children, opts)
   end
 end
