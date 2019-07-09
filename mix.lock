@@ -1,0 +1,8 @@
+%{
+  "delta_crdt": {:hex, :delta_crdt, "0.5.1", "309efe887f179db8ac9489606f494d09f60e177b170ecd2f303f3d11667c1774", [:mix], [{:merkle_map, "~> 0.1.1", [hex: :merkle_map, repo: "hexpm", optional: false]}, {:murmur, "~> 1.0", [hex: :murmur, repo: "hexpm", optional: false]}], "hexpm"},
+  "horde": {:hex, :horde, "0.6.0", "8a4c301ab152fde009f7fea3562e415408b5fa08ced717b9eb5229f6d647989f", [:mix], [{:delta_crdt, "== 0.5.1", [hex: :delta_crdt, repo: "hexpm", optional: false]}], "hexpm"},
+  "jason": {:hex, :jason, "1.1.2", "b03dedea67a99223a2eaf9f1264ce37154564de899fd3d8b9a21b1a6fd64afe7", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm"},
+  "libcluster": {:hex, :libcluster, "3.1.1", "cbab97b96141f47f2fe5563183c444bbce9282b3991ef054d69b8805546f0122", [:mix], [{:jason, "~> 1.1.2", [hex: :jason, repo: "hexpm", optional: false]}], "hexpm"},
+  "merkle_map": {:hex, :merkle_map, "0.1.3", "21542c019707005054ad9b0e7cb13b2c0c7f6a82dafc054d138dbb10a1f208e5", [:mix], [{:murmur, "~> 1.0", [hex: :murmur, repo: "hexpm", optional: true]}], "hexpm"},
+  "murmur": {:hex, :murmur, "1.0.1", "a6e6bced2dd0d666090a9cf3e73699f3b9176bbcf32d35b0f022f137667608e3", [:mix], [], "hexpm"},
+}
