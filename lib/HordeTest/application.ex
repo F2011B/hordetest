@@ -13,7 +13,7 @@ defmodule HordeTest.Application do
       {Cluster.Supervisor, [topologies, [name: Hordetest.ClusterSupervisor]]}
     ]
 
-    opts=[strategy: :one_for_one, name: {:global, Hordetest.Supervisor}]
+    opts=[strategy: :one_for_one, name: Hordetest.Supervisor]
     Supervisor.start_link(children, opts)
 
     Hordetest.Cluster.start_link()

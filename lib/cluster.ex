@@ -111,7 +111,7 @@ defmodule Hordetest.Cluster do
       {Hordetest.Handoff, name: Hordetest.HordeHandoff},
       {Horde.Supervisor, name: Hordetest.HordeSupervisor, strategy: :one_for_one, children: []},
       {Horde.Registry, name: Hordetest.HordeRegistry, keys: :unique},
-      #{Hordetest.Cluster.Tracker, []}
+      {Hordetest.Cluster.Tracker, []}
     ]
 
     {:ok, sup} =
@@ -177,9 +177,9 @@ defmodule Hordetest.Cluster do
     def handle_info(:update_trader_ids, state) do
       # Logger.info("**** Starting update_game_ids")
       {alive, dead} = Enum.split_with(Hordetest.Cluster.list_game_ids(), &Hordetest.Cluster.game_alive?/1)
-      dgi = update_dead_game_ids(dead, state.dead_game_ids)
+      dgi = update_dead_instance_ids(dead, state.dead_instances_ids)
       agi = Enum.sort(alive)
-      receivers = send_update(state.receivers, agi, state.game_ids)
+      receivers = send_update(state.receivers, agi, state.instance_ids)
       Process.send_after(self(), :update_trader_ids, @interval_millis)
       {:noreply, %State{state | instance_ids: agi, dead_instances_ids: dgi, receivers: receivers}}
     end
@@ -207,8 +207,8 @@ defmodule Hordetest.Cluster do
       :ok
     end
 
-    defp update_dead_game_ids(dead, old_dgi) do
-      # Logger.info("**** Starting update_dead_game_ids")
+    defp update_dead_instance_ids(dead, old_dgi) do
+      # Logger.info("**** Starting update_dead_instance_ids")
       time = System.monotonic_time(:millisecond)
 
       Enum.reduce(dead, %{}, fn g, d ->

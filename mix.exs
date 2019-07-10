@@ -8,8 +8,9 @@ defmodule HordeTest.MixProject do
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env()),
       releases: [
-        elixirtrader: [
+        hordetest: [
           include_executables_for: [:unix]
         ]
       ]
@@ -24,6 +25,7 @@ defmodule HordeTest.MixProject do
     ]
   end
 
+  defp elixirc_paths(_), do: ["lib"]
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
