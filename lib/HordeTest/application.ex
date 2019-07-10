@@ -6,19 +6,16 @@ defmodule HordeTest.Application do
     topologies =[
       example: [
         strategy: Cluster.Strategy.Epmd,
-        config: [hosts: [:"hordetest@h2778741", :"hordetest@BlackWidow"]],
+        config: [hosts: [:hordetest@h2778741, :hordetest@BlackWidow]],
       ]
     ]
     children=[
-      {Cluster.Supervisor, [topologies, [name: Hordetest.ClusterSupervisor]]},
-      {HordeSupervisor, [name: Hordetest.DistributedSupervisor, strategy: :one_for_one]}
-    ]
-
-    hordechilds=[
-
+      {Cluster.Supervisor, [topologies, [name: Hordetest.ClusterSupervisor]]}
     ]
 
     opts=[strategy: :one_for_one, name: {:global, Hordetest.Supervisor}]
     Supervisor.start_link(children, opts)
+
+    Hordetest.Cluster.start_link()
   end
 end
