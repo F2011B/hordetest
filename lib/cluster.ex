@@ -13,30 +13,9 @@ defmodule Hordetest.Cluster do
     Supervisor.stop(Hordetest.Cluster.Supervisor)
   end
 
-  def start_game(game_spec, opts \\ []) do
-    game_id = Hordetest.Util.ID.create("G", Hordetest.Cluster.list_game_ids(), 8)
-
-    opts =
-      opts
-      |> Keyword.put(:handoff, Hordetest.HordeHandoff)
-      |> Keyword.put(:game_address, Hordetest.Cluster.game_process(game_id))
-
-    child_spec = Hordetest.Game.child_spec({game_id, opts})
-    {:ok, supervisor_pid} = Horde.Supervisor.start_child(Hordetest.HordeSupervisor, child_spec)
-
-    manager_id = Hordetest.Game.manager_process_id(game_id)
-
-    game_pid =
-      supervisor_pid
-      |> Supervisor.which_children()
-      |> Enum.find_value(fn
-        {^manager_id, pid, :worker, _} -> pid
-        _ -> false
-      end)
-
-    Hordetest.Game.up(game_pid, game_spec)
-
-    {:ok, game_id, game_pid}
+  def start_payload_process(payload_spec, payload_id) do
+    {:ok, supervisor_pid} = Horde.Supervisor.start_child(Hordetest.HordeSupervisor, payload_spec)
+    {:ok, supervisor_pid}
   end
 
   def stop_game(game_id) do
